@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sana Özel Sürpriz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <style>
+        /* --- Temel Ayarlar & Gece Teması --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at bottom center, #0a1a2a 0%, #02080c 100%);
+            height: 100vh;
+            height: 100dvh; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* --- Mesaj Kutusu --- */
+        .message {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 1.5s ease-out;
+        }
+        
+        .message.show {
+            opacity: 1;
+            top: 25%;
+        }
+
+        .message h1 { 
+            font-family: 'Cinzel Decorative', cursive; 
+            color: #ff3366; 
+            font-size: 3rem; 
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.8); 
+            margin: 0;
+            line-height: 1.2;
+        }
+        .message p { 
+            color: #aaddff; 
+            font-size: 1.4rem; 
+            margin-top: 15px; 
+        }
+
+        /* --- BUTON STİLİ --- */
+        .click-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(45deg, #ff3366, #ba234d);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
+            transition: all 0.5s ease;
+            animation: pulseBtn 2s infinite;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+
+        .click-btn:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 51, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0); }
+        }
+
+        /* --- Ana Konteynır --- */
+        .bouquet {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .flower-wrapper {
+            position: absolute;
+            bottom: -30px;
+            transform-origin: bottom center;
+            z-index: 10;
+        }
+
+        /* --- GÜL CSS --- */
+        .rose-petals {
+            position: absolute; width: 85px; left: 50%; transform: translateX(-50%); z-index: 2;
+            filter: drop-shadow(0 0 5px rgba(213, 45, 88, 0.5));
+        }
+        .rose-petals > div {
+            background: #d52d58; width: 45px; height: 80px; position: absolute; transition: all 0.5s ease-out; border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .rose-petals > div:nth-child(1) { border-radius: 15px; left: 20px; top: -6px; background: #d52d58; z-index: 2; }
+        .rose-petals > div:nth-child(2), .rose-petals > div:nth-child(4), .rose-petals > div:nth-child(6) {
+            border-radius: 0px 30px 0px 30px; background: #b81b43; left: 0; transform-origin: bottom right;
+        }
+        .rose-petals > div:nth-child(3), .rose-petals > div:nth-child(5), .rose-petals > div:nth-child(7) {
+            border-radius: 30px 0px 30px 0px; background: #b81b43; left: 40px; transform-origin: bottom left;
+        }
+
+        /* Animasyonlar */
+        .rose-petals > div:nth-child(2) { animation: openRose2 3s ease-in-out forwards 1.5s; z-index: 10; background: #9e183a; top: 10px; height: 70px; }
+        .rose-petals > div:nth-child(3) { animation: openRose3 3s ease-in-out forwards 1.5s; z-index: 9; background: #9e183a; top: 10px; height: 70px; }
+        .rose-petals > div:nth-child(4) { animation: openRose4 3s ease-in-out forwards 1.5s; z-index: 8; background: #b81b43; top: 5px; height: 75px; }
+        .rose-petals > div:nth-child(5) { animation: openRose5 3s ease-in-out forwards 1.5s; z-index: 7; background: #b81b43; top: 5px; height: 75px; }
+        .rose-petals > div:nth-child(6) { animation: openRose6 3s ease-in-out forwards 1.5s; z-index: 6; background: #c9204b; top: 0; height: 80px; }
+        .rose-petals > div:nth-child(7) { animation: openRose7 3s ease-in-out forwards 1.5s; z-index: 5; background: #c9204b; top: 0; height: 80px; }
+
+        @keyframes openRose2 { 50% { transform: rotate(-90deg); top: 80px; left: 100px; } 50% { transform: rotate(-60deg); top: 15px; left: -5px; } }
+        @keyframes openRose3 { 50% { transform: rotate(60deg); top: 15px; left: 45px; } }
+        @keyframes openRose4 { 50% { transform: rotate(-30deg); top: 5px; left: -5px; } }
+        @keyframes openRose5 { 50% { transform: rotate(30deg); top: 5px; left: 45px; } }
+        @keyframes openRose6 { 50% { transform: rotate(-20deg); top: 0px; left: -10px; } }
+        @keyframes openRose7 { 50% { transform: rotate(20deg); top: 0px; left: 50px; } }
+
+        .rose-leaves { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 10px; z-index: 1; }
+        .stem { width: 8px; background: linear-gradient(to right, #066406, #338f37); border-radius: 4px; margin: 0 auto; box-shadow: inset 0 0 5px rgba(0,0,0,0.5); }
+        .thorns > div { width: 30px; height: 15px; background: #066406; position: absolute; border-radius: 0 50% 0 50%; box-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        
+        .grass {
+            position: absolute; bottom: 0; width: 100%; height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150" preserveAspectRatio="none"><path d="M0,150 L0,120 Q50,100 100,130 T200,110 Q250,140 300,120 T400,130 Q450,100 500,140 T600,120 Q650,100 700,130 T800,110 Q850,140 900,120 T1000,130 L1000,150 Z" fill="%23002211" stroke="none"/></svg>');
+            background-size: cover; z-index: 15; filter: drop-shadow(0 -5px 10px rgba(0, 200, 255, 0.1));
+        }
+        .floating-heart {
+            position: absolute; width: 20px; height: 20px; background-color: #ff3366; transform: rotate(45deg); opacity: 0; z-index: 100; box-shadow: 0 0 10px #ff3366; animation: floatUpHeart ease-out forwards; pointer-events: none;
+        }
+        .floating-heart::before, .floating-heart::after { content: ""; position: absolute; width: 20px; height: 20px; background: inherit; border-radius: 50%; }
+        .floating-heart::before { top: -10px; left: 0; } .floating-heart::after { left: -10px; top: 0; }
+        @keyframes floatUpHeart { 0% { opacity: 0; transform: translateY(0) rotate(45deg) scale(0.5); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-70vh) rotate(45deg) scale(1.5); } }
+        .particle {
+            position: absolute; background-color: #00d2ff; border-radius: 50%; box-shadow: 0 0 6px #00d2ff, 0 0 10px #ffffff; animation: floatParticle linear infinite; opacity: 0; z-index: 1; pointer-events: none;
+        }
+        @keyframes floatParticle { 0% { transform: translateY(0) scale(0.5); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.6; } 100% { transform: translateY(-100vh) scale(1); opacity: 0; } }
+
+        /* --- MOBİL İÇİN ÖZEL CSS --- */
+        @media only screen and (max-width: 600px) {
+            .message h1 { font-size: 2rem; }
+            .message p { font-size: 1rem; }
+            .click-btn { padding: 12px 30px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <button class="click-btn" onclick="showMessage()">Sürprize Tıkla ❤️</button>
+
+    <div class="message">
+        <h1>Seni Seviyorum</h1>
+        <p>Dünyadaki tüm çiçekleri toplasam, senin güzelliğine erişemezler.</p>
+    </div>
+
+    <div class="grass"></div>
+    <div class="bouquet" id="bouquet"></div>
+
+    <script>
+        const bouquetContainer = document.getElementById('bouquet');
+
+        // --- MOBİL ALGILAMA VE AYARLAR ---
+        const isMobile = window.innerWidth < 600;
+        const totalFlowers = isMobile ? 10 : 12; 
+        const spacing = isMobile ? 35 : 60;
+
+        function showMessage() {
+            const msg = document.querySelector('.message');
+            const btn = document.querySelector('.click-btn');
+            msg.classList.add('show');
+            btn.style.opacity = '0';
+            setTimeout(() => { btn.remove(); }, 1000);
+        }
+
+        function createFlower(index) {
+            const flowerWrapper = document.createElement('div');
+            flowerWrapper.classList.add('flower-wrapper');
+            
+            const baseHeight = isMobile ? 220 : 280;
+            const height = baseHeight + Math.random() * (isMobile ? 120 : 180); 
+            const horizontalPos = (index - totalFlowers / 2) * spacing;
+            const minScale = isMobile ? 0.4 : 0.6;
+            const scale = minScale + Math.random() * 0.4;
+            
+            flowerWrapper.style.left = `calc(50% + ${horizontalPos}px)`;
+            flowerWrapper.style.transform = `scale(${scale})`; 
+            flowerWrapper.style.zIndex = Math.floor(scale * 10);
+            
+            // Calyx kaldırıldığı için bloomBottom'a gerek kalmadı, doğrudan height kullanıyoruz
+            
+            flowerWrapper.innerHTML = `
+                <div class="rose-leaves">
+                    <div class="stem" style="height: ${height}px;"></div>
+                    <div class="thorns">
+                        <div style="bottom: ${height * 0.3}px; left: 10px; transform: rotate(-20deg);"></div>
+                        <div style="bottom: ${height * 0.6}px; right: 10px; transform: rotate(200deg);"></div>
+                         <div style="bottom: ${height * 0.45}px; left: 8px; transform: rotate(-10deg) scale(0.8);"></div>
+                    </div>
+                </div>
+                <div class="rose-petals" style="bottom: ${height - 10}px;"> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+                </div>
+            `;
+            bouquetContainer.appendChild(flowerWrapper);
+        }
+
+        for (let i = 0; i < totalFlowers; i++) {
+            createFlower(i);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            const range = isMobile ? window.innerWidth : 600;
+            const randomLeft = (Math.random() * range) - (range / 2);
+            heart.style.left = `calc(50% + ${randomLeft}px)`;
+            heart.style.bottom = (Math.random() * 100) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            bouquetContainer.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+        setTimeout(() => { setInterval(createFloatingHeart, 500); }, 2500);
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 3 + 1;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = Math.random() * 100 + "vw";
+            particle.style.bottom = Math.random() * 20 + "vh";
+            const duration = Math.random() * 10 + 10;
+            particle.style.animationDuration = `${duration}s`;
+            document.body.appendChild(particle);
+            setTimeout(() => { particle.remove(); }, duration * 1000);
+        }
+        setInterval(createParticle, 200);
+    </script>
+</body>
+</html>
